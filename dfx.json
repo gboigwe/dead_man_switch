@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "dead_man_switch_backend": {
+      "main": "src/dead_man_switch_backend/main.mo",
+      "type": "motoko"
+    },
+    "dead_man_switch_frontend": {
+      "dependencies": [
+        "dead_man_switch_backend"
+      ],
+      "source": [
+        "src/dead_man_switch_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "dead_man_switch_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

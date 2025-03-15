@@ -4,15 +4,23 @@
       "main": "src/dead_man_switch_backend/main.mo",
       "type": "motoko"
     },
+    "dead_man_switch_bitcoin": {
+      "main": "src/dead_man_switch_bitcoin/main.mo",
+      "type": "motoko"
+    },
     "dead_man_switch_frontend": {
       "dependencies": [
-        "dead_man_switch_backend"
+        "dead_man_switch_backend",
+        "dead_man_switch_bitcoin"
       ],
+      "frontend": {
+        "entrypoint": "src/dead_man_switch_frontend/src/index.html"
+      },
       "source": [
-        "src/dead_man_switch_frontend/dist"
+        "src/dead_man_switch_frontend/public",
+        "dist/dead_man_switch_frontend/"
       ],
-      "type": "assets",
-      "workspace": "dead_man_switch_frontend"
+      "type": "assets"
     }
   },
   "defaults": {

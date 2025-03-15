@@ -1,0 +1,11 @@
+{
+  "dead_man_switch_backend": {
+    "ic": "66ipo-liaaa-aaaao-qj6kq-cai"
+  },
+  "dead_man_switch_bitcoin": {
+    "ic": "6xles-5aaaa-aaaao-qj6la-cai"
+  },
+  "dead_man_switch_frontend": {
+    "ic": "6qkcg-qyaaa-aaaao-qj6lq-cai"
+  }
+}

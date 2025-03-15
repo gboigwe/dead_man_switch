@@ -1,59 +1,90 @@
-# `dead_man_switch`
+# Bitcoin Dead Man Switch
 
-Welcome to your new `dead_man_switch` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+A trustless Bitcoin inheritance solution built on the Internet Computer Protocol. This application allows users to create "dead man switches" that automatically transfer Bitcoin to designated recipients if the user fails to check in within a specified timeframe.
 
-To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
+## Problem & Solution
 
-To learn more before you start working with `dead_man_switch`, see the following documentation available online:
+Bitcoin holders face a critical challenge: how to ensure their assets can be accessed by loved ones in case of emergency, without giving up custody to third parties.
 
-- [Quick Start](https://internetcomputer.org/docs/current/developer-docs/setup/deploy-locally)
-- [SDK Developer Tools](https://internetcomputer.org/docs/current/developer-docs/setup/install)
-- [Motoko Programming Language Guide](https://internetcomputer.org/docs/current/motoko/main/motoko)
-- [Motoko Language Quick Reference](https://internetcomputer.org/docs/current/motoko/main/language-manual)
+Our Dead Man Switch provides a trustless inheritance solution by leveraging ICP's unique capabilities:
+- Users create switches with Bitcoin addresses, recipients, and check-in intervals
+- If users don't check in, funds are automatically transferred to designated recipients
+- The entire process is trustless - no third party ever holds the private keys
 
-If you want to start working on your project right away, you might want to try the following commands:
+## Key Features
 
+- **Trustless Inheritance**: No third party holds the private keys
+- **Configurable Timing**: Users set their own schedule for required check-ins
+- **Multiple Recipients**: Support for multiple beneficiaries with different amounts 
+- **Bitcoin Integration**: Uses ICP's direct Bitcoin integration without bridges
+- **Chain-Key Cryptography**: Leverages ICP's threshold ECDSA signatures for secure Bitcoin transactions
+
+## ICP-Specific Features Used
+
+This project demonstrates several unique ICP capabilities:
+
+1. **Bitcoin Integration API**: Direct access to Bitcoin UTXO set and transaction creation
+2. **Threshold ECDSA Signatures**: For secure Bitcoin transaction signing without custody
+3. **Canister Timers**: Periodic checking of switches through the heartbeat function
+4. **On-Chain Frontend**: Frontend code hosted directly on the blockchain
+
+## Architecture
+
+The application consists of three main components:
+
+1. **Backend Canister**: Manages switches, check-in logic, and timing
+2. **Bitcoin Canister**: Handles Bitcoin address validation and transaction signing
+3. **Frontend**: User interface for creating and managing switches
+
+## Live Demo
+
+The application is deployed on the IC mainnet:
+For access to the Live demo, please contact the project maintainers:
+
+## Local Development
+
+### Prerequisites
+- Node.js (v16+)
+- DFX (v0.15.0+)
+- Git
+
+### Setup
 ```bash
-cd dead_man_switch/
-dfx help
-dfx canister --help
-```
+# Clone the repository
+git clone https://github.com/gboigwe/dead_man_switch.git
+cd dead_man_switch
 
-## Running the project locally
+# Install dependencies
+npm install
 
-If you want to test your project locally, you can use the following commands:
+# Start the local replica
+dfx start --clean --background
 
-```bash
-# Starts the replica, running in the background
-dfx start --background
-
-# Deploys your canisters to the replica and generates your candid interface
+# Deploy the canisters
 dfx deploy
 ```
 
-Once the job completes, your application will be available at `http://localhost:4943?canisterId={asset_canister_id}`.
+## How It Works
 
-If you have made changes to your backend canister, you can generate a new candid interface with
+1. **Setup**: Users create a switch by specifying:
+- - Check-in interval
+- - Source Bitcoin address
+- - Recipient Bitcoin addresses and amounts
+2. **Regular Check-ins**: Users must periodically confirm they're still in control
+3. **Automatic Execution**: If a user fails to check in before their specified deadline, the switch is automatically triggered
+4. **Secure Transfers**: The system uses ICP's chain-key cryptography to sign Bitcoin transactions
 
-```bash
-npm run generate
-```
+## Future Enhancements
 
-at any time. This is recommended before starting the frontend development server, and will be run automatically any time you run `dfx deploy`.
+- Email notifications for upcoming check-in deadlines
+- Multi-signature requirements for triggering switches
+- Support for additional cryptocurrencies through ICP's chain fusion
+- Advanced scheduling options
 
-If you are making frontend changes, you can start a development server with
+## License
+MIT License - see LICENSE file for details
 
-```bash
-npm start
-```
+## Acknowledgments
 
-Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 4943.
-
-### Note on frontend environment variables
-
-If you are hosting frontend code somewhere without using DFX, you may need to make one of the following adjustments to ensure your project does not fetch the root key in production:
-
-- set`DFX_NETWORK` to `ic` if you are using Webpack
-- use your own preferred method to replace `process.env.DFX_NETWORK` in the autogenerated declarations
-  - Setting `canisters -> {asset_canister_id} -> declarations -> env_override to a string` in `dfx.json` will replace `process.env.DFX_NETWORK` with the string in the autogenerated declarations
-- Write your own `createActor` constructor
+ICP/DFINITY for providing the Bitcoin integration capabilities
+The Stacks Foundation for hosting the BUIDL Battle hackathon
